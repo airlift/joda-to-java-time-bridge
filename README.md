@@ -1,5 +1,6 @@
 # joda-to-java-time-bridge
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.airlift/joda-to-java-time-bridge.svg?label=Maven%20Central)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.airlift%22%20AND%20a%3A%22joda-to-java-time-bridge%22)
 [![Build Status](https://travis-ci.org/airlift/joda-to-java-time-bridge.svg?branch=master)](https://travis-ci.org/airlift/joda-to-java-time-bridge)
 
 Mixed use of Joda-Time and `java.time` results in two different time zone
