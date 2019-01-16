@@ -15,7 +15,6 @@
 package io.airlift.jodabridge;
 
 import org.joda.time.DateTimeZone;
-import org.joda.time.tz.CachedDateTimeZone;
 import org.joda.time.tz.Provider;
 
 import java.time.zone.ZoneRulesProvider;
@@ -41,15 +40,6 @@ public class JdkBasedZoneInfoProvider
             }
             else {
                 zone = new JdkBasedDateTimeZone(zoneId);
-            }
-            if (!zone.isFixed()) {
-                // Joda's default Provider implementation, ZoneInfoProvider, caches a zone
-                // most of the time if the zone is not fixed. The exception being zones that
-                // isn't worthwhile from a performance perspective. The actual check is in
-                // `DateTimeZoneBuilder.isCachable` check (a zone would fail if on average
-                // it has a transition less than every 25 days).
-                // This implementation caches everything for simplicity.
-                zone = CachedDateTimeZone.forZone(zone);
             }
             zonesBuilder.put(zoneId, zone);
         }
