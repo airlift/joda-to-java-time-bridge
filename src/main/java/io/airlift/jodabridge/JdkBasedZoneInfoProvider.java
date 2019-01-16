@@ -14,16 +14,16 @@
 
 package io.airlift.jodabridge;
 
-import com.google.common.collect.ImmutableMap;
 import org.joda.time.DateTimeZone;
 import org.joda.time.tz.CachedDateTimeZone;
 import org.joda.time.tz.Provider;
 
 import java.time.zone.ZoneRulesProvider;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.google.common.base.Verify.verify;
+import static java.util.Collections.unmodifiableMap;
 
 public class JdkBasedZoneInfoProvider
         implements Provider
@@ -31,14 +31,13 @@ public class JdkBasedZoneInfoProvider
     private static final Map<String, DateTimeZone> zones;
 
     static {
-        ImmutableMap.Builder<String, DateTimeZone> zonesBuilder = ImmutableMap.builder();
+        Map<String, DateTimeZone> zonesBuilder = new HashMap<>();
 
         for (String zoneId : ZoneRulesProvider.getAvailableZoneIds()) {
             DateTimeZone zone;
             if (zoneId.equals("UTC")) {
                 // Joda requires that this particular zone implementation be used for UTC.
                 zone = DateTimeZone.UTC;
-                verify(zone.isFixed());
             }
             else {
                 zone = new JdkBasedDateTimeZone(zoneId);
@@ -55,7 +54,7 @@ public class JdkBasedZoneInfoProvider
             zonesBuilder.put(zoneId, zone);
         }
 
-        zones = zonesBuilder.build();
+        zones = unmodifiableMap(zonesBuilder);
     }
 
     @Override
