@@ -50,7 +50,7 @@ public class JdkBasedDateTimeZone
         //   of `DateTimeZone`.
 
         // Use an obviously incorrect and easily searchable value here
-        return "presto-name-key-not-provided";
+        return "airlift-name-key-not-provided";
     }
 
     @Override
